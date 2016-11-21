@@ -20,7 +20,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "/Client/",
+    path: __dirname + "/Client/js",
     filename: "index.js"
   },
   plugins: debug ? [] : [
