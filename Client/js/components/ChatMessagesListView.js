@@ -7,10 +7,10 @@ export default class ChatMessagesListView extends React.Component {
         return (
             <div className="ChatMessagesListView">
                 <ChatMessageView ChatMessageId="0" ChatUserName="Гость2">
-                    qqqqqttttt
+                    qqqqqttt ttqqqqqtt tttqqqqqtttt  tqqqqqtttttqqqqqtttttqqqqqt                
                 </ChatMessageView>
                 <ThisUserChatMessageView ChatMessageId="1" ChatUserName="Гость1">
-                    eprst
+                    eprst eprst eprst eprst eprst eprst eprsteprst eprsteprstepr steprsteprst
                 </ThisUserChatMessageView>
             </div>
         );
