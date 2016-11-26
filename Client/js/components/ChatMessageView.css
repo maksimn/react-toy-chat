@@ -1,0 +1,23 @@
+.chatMessageView {
+    width : 300px;
+    border: 1px solid black;
+}
+
+.chatUserNameStyle {
+    width: 65px;
+    vertical-align: top;
+}
+
+.chatMessageStyle {
+    width: 155px;
+    overflow: auto;
+}
+
+.chatUserNameStyle, .chatMessageStyle {
+    padding: 5px;
+    display: inline-block;
+}
+
+.emptyBlockStyle {
+    width: 50px;
+}
