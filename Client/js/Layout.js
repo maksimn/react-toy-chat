@@ -1,11 +1,15 @@
 import React from "react";
+
 import ChatMessageInputForm from "./components/ChatMessageInputForm";
 import ChatMessagesListView from "./components/ChatMessagesListView";
+
+import MockWebSocketEvents from "./networking/MockWebSocketEvents";
 
 export default class Layout extends React.Component {
     constructor() {
         super();
         this.state = { chatUserName: "Гость1", chatMessages: [] };
+        new MockWebSocketEvents(this.handleChatMessage.bind(this));
     }
     handleChatMessage(msgObj) {
         const newMsg = {
