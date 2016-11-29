@@ -4,15 +4,36 @@ import ThisUserChatMessageView from "../ThisUserChatMessageView";
 
 export default class ChatMessagesListView extends React.Component {
     render() {
+        const appState = this.props.appState;
+        const thisChatUserName = appState.chatUserName;
+        let chatMessages = appState.chatMessages;
+        let chatMessageViews = [];
+        for(let i = 0; i < chatMessages.length; i++) {
+            const chatMessage = chatMessages[i];
+            if(chatMessage.chatUserName === thisChatUserName) {
+                chatMessageViews.push(
+                    <ThisUserChatMessageView 
+                        key={chatMessage.chatMessageId}
+                        ChatMessageId={chatMessage.chatMessageId}
+                        ChatUserName={chatMessage.chatUserName}
+                    >
+                        {chatMessage.chatMessageText}
+                    </ThisUserChatMessageView>
+                );
+            } else {
+                chatMessageViews.push(
+                    <ChatMessageView
+                        key={chatMessage.chatMessageId}
+                        ChatMessageId={chatMessage.chatMessageId}
+                        ChatUserName={chatMessage.chatUserName}                    
+                    >
+                        {chatMessage.chatMessageText}
+                    </ChatMessageView>
+                );
+            }
+        }
         return (
-            <div className="ChatMessagesListView">
-                <ChatMessageView ChatMessageId="0" ChatUserName="Гость2">
-                    qqqqqttt ttqqqqqtt tttqqqqqtttt  tqqqqqtttttqqqqqtttttqqqqqt                
-                </ChatMessageView>
-                <ThisUserChatMessageView ChatMessageId="1" ChatUserName="Гость1">
-                    eprst eprst eprst eprst eprst eprst eprsteprst eprsteprstepr steprsteprst
-                </ThisUserChatMessageView>
-            </div>
+            <div>{chatMessageViews}</div>
         );
     }
 }
