@@ -1,7 +1,7 @@
 import React from "react";
 
-import ChatMessageView from "./ChatMessageView";
-import styles from "./ChatMessageView.css";
+import ChatMessageView from "../ChatMessageView";
+import styles from "../ChatMessageView/ChatMessageView.css";
 
 export default class ThisUserChatMessageView extends ChatMessageView {
     render() {

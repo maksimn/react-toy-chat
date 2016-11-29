@@ -1,6 +1,6 @@
 import React from "react";
-import ChatMessageView from "./ChatMessageView";
-import ThisUserChatMessageView from "./ThisUserChatMessageView";
+import ChatMessageView from "../ChatMessageView";
+import ThisUserChatMessageView from "../ThisUserChatMessageView";
 
 export default class ChatMessagesListView extends React.Component {
     render() {
