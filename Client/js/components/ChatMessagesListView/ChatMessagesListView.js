@@ -4,9 +4,10 @@ import ThisUserChatMessageView from "../ThisUserChatMessageView";
 
 export default class ChatMessagesListView extends React.Component {
     render() {
-        const appState = this.props.appState;
+        const { appState } = this.props;
         const thisChatUserName = appState.chatUserName;
-        let chatMessages = appState.chatMessages;
+        let { chatMessages } = appState;
+        
         let chatMessageViews = [];
         for(let i = 0; i < chatMessages.length; i++) {
             const chatMessage = chatMessages[i];

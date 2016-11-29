@@ -8,21 +8,22 @@ export default class Layout extends React.Component {
         this.state = { chatUserName: "Гость1", chatMessages: [] };
     }
     handleChatMessage(msgObj) {
-        const newId = this.state.chatMessages.length;
+        const newMsg = {
+            chatMessageId: this.state.chatMessages.length,
+            chatUserName: msgObj.chatUserName,
+            chatMessageText: msgObj.chatMessageText
+        };
         this.setState({
             chatUserName: this.state.chatUserName,
-            chatMessages: this.state.chatMessages.concat({
-                chatMessageId: newId,
-                chatUserName: msgObj.chatUserName,
-                chatMessageText: msgObj.chatMessageText
-            })
+            chatMessages: [...this.state.chatMessages, newMsg]
         });
     }
 
     render() {
         return (
             <div>
-                <ChatMessageInputForm addChatMessage={this.handleChatMessage.bind(this)} />
+                <ChatMessageInputForm userName={this.state.chatUserName} 
+                                      addChatMessage={this.handleChatMessage.bind(this)} />
                 <ChatMessagesListView appState={this.state} />
             </div>
         );
