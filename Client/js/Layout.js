@@ -3,6 +3,10 @@ import ChatMessageInputForm from "./components/ChatMessageInputForm";
 import ChatMessagesListView from "./components/ChatMessagesListView";
 
 export default class Layout extends React.Component {
+    constructor() {
+        super();
+        this.state = { chatUserName: "Гость1", chatMessages: [] };
+    }
     handleChatMessage(msgObj) {
         const newId = this.state.chatMessages.length;
         this.setState({
