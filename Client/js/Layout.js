@@ -3,14 +3,23 @@ import React from "react";
 import ChatMessageInputForm from "./components/ChatMessageInputForm";
 import ChatMessagesListView from "./components/ChatMessagesListView";
 
-import MockWebSocketEvents from "./networking/MockWebSocketEvents";
+import { mockAppInitalizer, mockWebSocketEvents } from "./mocks/mocks";
 
 export default class Layout extends React.Component {
     constructor() {
         super();
-        this.state = { chatUserName: "Гость1", chatMessages: [] };
-        new MockWebSocketEvents(this.handleChatMessage.bind(this));
+        mockAppInitalizer(this.initState.bind(this));
+        mockWebSocketEvents(this.handleChatMessage.bind(this));
     }
+
+    initState(jsonResult) {
+        const chatData = JSON.parse(jsonResult);
+        const userName = chatData.ThisUser.Name;
+        const chatMessages = chatData.ChatMessages;
+
+        this.state = { chatUserName: userName, chatMessages: chatMessages };
+    }
+
     handleChatMessage(msgObj) {
         const newMsg = {
             chatMessageId: this.state.chatMessages.length,
