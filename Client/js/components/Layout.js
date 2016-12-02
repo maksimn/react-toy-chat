@@ -1,9 +1,9 @@
 import React from "react";
 
-import ChatMessageInputForm from "./components/ChatMessageInputForm";
-import ChatMessagesListView from "./components/ChatMessagesListView";
+import ChatMessageInputForm from "./ChatMessageInputForm";
+import ChatMessagesListView from "./ChatMessagesListView";
 
-import { mockAppInitalizer, mockWebSocketEvents } from "./mocks/mocks";
+import { mockAppInitalizer, mockWebSocketEvents } from "../mocks/mocks";
 
 export default class Layout extends React.Component {
     constructor() {
@@ -14,10 +14,11 @@ export default class Layout extends React.Component {
 
     initState(jsonResult) {
         const chatData = JSON.parse(jsonResult);
-        const userName = chatData.ThisUser.Name;
-        const chatMessages = chatData.ChatMessages;
 
-        this.state = { chatUserName: userName, chatMessages: chatMessages };
+        this.state = { 
+            chatUserName: chatData.ThisUser.Name, 
+            chatMessages: chatData.ChatMessages 
+        };
     }
 
     handleChatMessage(msgObj) {
