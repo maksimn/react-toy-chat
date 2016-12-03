@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux"
 
-import { userName, chatMessages } from "../appConstants";
 import ChatMessageInputForm from "./ChatMessageInputForm";
 import ChatMessagesListView from "./ChatMessagesListView";
 
@@ -10,10 +9,6 @@ import { mockWebSocketMessages } from "../mocks/mocks";
 export class Layout extends React.Component {
     componentWillMount() {
         this.props.dispatch(mockWebSocketMessages());
-        
-        for(let i = 0; i < chatMessages.length; i++) {
-            this.props.dispatch({ type: "CHAT_MESSAGE_RECEIVED", payload: chatMessages[i] });
-        }
     }
 
     handleChatMessage(msgObj) {
@@ -21,11 +16,12 @@ export class Layout extends React.Component {
     }
 
     render() {
+        const chatUserName = this.props.userName;
         return (
             <div>
-                <ChatMessageInputForm userName={userName} 
+                <ChatMessageInputForm userName={chatUserName} 
                                       addChatMessage={this.handleChatMessage.bind(this)} />
-                <ChatMessagesListView userName={userName}
+                <ChatMessagesListView userName={chatUserName}
                                       appState={this.props} />
             </div>
         );
@@ -34,6 +30,7 @@ export class Layout extends React.Component {
 
 export default connect((store) => {
     return {
+        userName: store.userName,
         chatMessages: store.chatMessages
     };
 })(Layout);

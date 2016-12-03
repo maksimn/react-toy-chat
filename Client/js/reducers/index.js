@@ -1,6 +1,16 @@
 import { combineReducers } from 'redux';
 
-function chatMessagesReducer(state=[], action) {
+const scriptElement = document.querySelector('script');      
+const jsonChatMessages = scriptElement.getAttribute('data-chat-messages');
+
+const initChatMessages = JSON.parse(jsonChatMessages);
+const userName = scriptElement.getAttribute('data-userName');
+
+function userNameReducer(state=userName, action) {
+    return state;
+}
+
+function chatMessagesReducer(state=initChatMessages, action) {
     if (action.type === "CHAT_MESSAGE_RECEIVED") {
         const newId = state.length;
         const newChatMessage = {
@@ -14,6 +24,7 @@ function chatMessagesReducer(state=[], action) {
 }
 
 const reducers = combineReducers({
+    userName: userNameReducer,
     chatMessages: chatMessagesReducer
 });
 
