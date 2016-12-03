@@ -1,45 +1,39 @@
 import React from "react";
+import { connect } from "react-redux"
 
+import { userName, chatMessages } from "../appConstants";
 import ChatMessageInputForm from "./ChatMessageInputForm";
 import ChatMessagesListView from "./ChatMessagesListView";
 
-import { mockAppInitalizer, mockWebSocketEvents } from "../mocks/mocks";
+import { mockWebSocketMessages } from "../mocks/mocks";
 
-export default class Layout extends React.Component {
-    constructor() {
-        super();
-        mockAppInitalizer(this.initState.bind(this));
-        mockWebSocketEvents(this.handleChatMessage.bind(this));
-    }
-
-    initState(jsonResult) {
-        const chatData = JSON.parse(jsonResult);
-
-        this.state = { 
-            chatUserName: chatData.ThisUser.Name, 
-            chatMessages: chatData.ChatMessages 
-        };
+export class Layout extends React.Component {
+    componentWillMount() {
+        this.props.dispatch(mockWebSocketMessages());
+        
+        for(let i = 0; i < chatMessages.length; i++) {
+            this.props.dispatch({ type: "CHAT_MESSAGE_RECEIVED", payload: chatMessages[i] });
+        }
     }
 
     handleChatMessage(msgObj) {
-        const newMsg = {
-            chatMessageId: this.state.chatMessages.length,
-            chatUserName: msgObj.chatUserName,
-            chatMessageText: msgObj.chatMessageText
-        };
-        this.setState({
-            chatUserName: this.state.chatUserName,
-            chatMessages: [...this.state.chatMessages, newMsg]
-        });
+        this.props.dispatch({ type: "CHAT_MESSAGE_RECEIVED", payload: msgObj })
     }
 
     render() {
         return (
             <div>
-                <ChatMessageInputForm userName={this.state.chatUserName} 
+                <ChatMessageInputForm userName={userName} 
                                       addChatMessage={this.handleChatMessage.bind(this)} />
-                <ChatMessagesListView appState={this.state} />
+                <ChatMessagesListView userName={userName}
+                                      appState={this.props} />
             </div>
         );
     }
 }
+
+export default connect((store) => {
+    return {
+        chatMessages: store.chatMessages
+    };
+})(Layout);
